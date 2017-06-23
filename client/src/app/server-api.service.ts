@@ -27,6 +27,15 @@ export class ServerApiService {
     return this._http.get( '/api/questions' )
       .map( data => {
         let question_list = data.json();
+        // shuffle
+        for( let i = 0; i < question_list.length; ++i ) {
+          let n = Math.floor( Math.random() * question_list.length );
+          // swap
+          let tmp = question_list[i];
+          question_list[i] = question_list[n];
+          question_list[n] = tmp;
+        }
+        // reduce
         while( question_list.length > 3 ) {
           let n = Math.floor( Math.random() * question_list.length );
           question_list.splice( n, 1 );
@@ -36,6 +45,12 @@ export class ServerApiService {
       .toPromise();
   }
 
+  create_score( item ) {
+    return this._http.post( '/api/scores', item )
+      .map( data => data.json() )
+      .toPromise();
+  }
+  
   // create( item ) { return this._http.post( 'api', item ) .map( data => data.json() ) .toPromise(); }
   // read_all() { return this._http.get( 'api' ) .map( data => data.json() ) .toPromise(); }
   // read_one( pk ) { return this._http.get( 'api/' ) .map( data => data.json() ) .toPromise(); }
