@@ -17,6 +17,12 @@ export class ServerApiService {
       .toPromise();
   }
 
+  get_all_scores() {
+    return this._http.get( '/api/scores' )
+      .map( data => data.json() )
+      .toPromise();
+  }
+  
   // create( item ) { return this._http.post( 'api', item ) .map( data => data.json() ) .toPromise(); }
   // read_all() { return this._http.get( 'api' ) .map( data => data.json() ) .toPromise(); }
   // read_one( pk ) { return this._http.get( 'api/' ) .map( data => data.json() ) .toPromise(); }

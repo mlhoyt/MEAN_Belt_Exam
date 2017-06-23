@@ -32,9 +32,9 @@
       </thead>
       <tbody>
         <tr *ngFor="let score of all_scores">
-          <td></td>
-          <td></td>
-          <td></td>
+          <td>{{ score.user }}</td>
+          <td>{{ score.nrCorrect }}/{{ score.nrAsked }}</td>
+          <td>{{ (score.nrCorrect / score.nrAsked) * 100 | number : '.0-1' }}%</td>
         </tr>
       </tbody>
     </table>
