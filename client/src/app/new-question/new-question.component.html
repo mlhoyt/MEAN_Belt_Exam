@@ -10,19 +10,19 @@
   <form #newQuestionForm="ngForm" (submit)="doSubmit()">
     <div class="row_container">
       <label for="text">Question:</label>
-      <textarea name="name" rows="4" cols="60" [(ngModel)]="new_q.text"></textarea>
+      <textarea name="name" rows="4" cols="60" [(ngModel)]="new_q.text" required minlength="15"></textarea>
     </div>
     <div class="row_container">
       <label for="answer">Correct Answer:</label>
-      <input type="text" name="answer" [(ngModel)]="new_q.answer" />
+      <input type="text" name="answer" [(ngModel)]="new_q.answer" required minlength="1" />
     </div>
     <div class="row_container">
       <label for="fake1">Fake Answer 1:</label>
-      <input type="text" name="fake1" [(ngModel)]="new_q.fake1" />
+      <input type="text" name="fake1" [(ngModel)]="new_q.fake1" required minlength="1" />
     </div>
     <div class="row_container">
       <label for="answer">Fake Answer 2:</label>
-      <input type="text" name="fake2" [(ngModel)]="new_q.fake2" />
+      <input type="text" name="fake2" [(ngModel)]="new_q.fake2" required minlength="1" />
     </div>
     <div class="row_container">
       <button type="button" name="cancel" (click)="doCancel()">Cancel</button>

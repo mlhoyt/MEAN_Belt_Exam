@@ -9,6 +9,8 @@ import { HomeComponent } from './home/home.component';
 import { LoginComponent } from './login/login.component';
 import { NewQuestionComponent } from './new-question/new-question.component';
 
+import { ServerApiService } from './server-api.service';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -23,6 +25,7 @@ import { NewQuestionComponent } from './new-question/new-question.component';
     AppRoutingModule,
   ],
   providers: [
+    ServerApiService,
   ],
   bootstrap: [AppComponent]
 })
