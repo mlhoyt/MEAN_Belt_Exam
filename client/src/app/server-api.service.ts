@@ -25,10 +25,17 @@ export class ServerApiService {
 
   get_random_questions() {
     return this._http.get( '/api/questions' )
-      .map( data => data.json() )
+      .map( data => {
+        let question_list = data.json();
+        while( question_list.length > 3 ) {
+          let n = Math.floor( Math.random() * question_list.length );
+          question_list.splice( n, 1 );
+        }
+        return question_list;
+      })
       .toPromise();
   }
-  
+
   // create( item ) { return this._http.post( 'api', item ) .map( data => data.json() ) .toPromise(); }
   // read_all() { return this._http.get( 'api' ) .map( data => data.json() ) .toPromise(); }
   // read_one( pk ) { return this._http.get( 'api/' ) .map( data => data.json() ) .toPromise(); }
