@@ -1,0 +1,32 @@
+<h5>new-question.component</h5>
+<header>
+  <p>
+    <a [routerLink]="['/']">Home</a>
+    | <a [routerLink]="['/new_question']">Add a Question</a>
+  </p>
+</header>
+<main>
+  <h1>New Question:</h1>
+  <form #newQuestionForm="ngForm" (submit)="doSubmit()">
+    <div class="row_container">
+      <label for="text">Question:</label>
+      <textarea name="name" rows="4" cols="60" [(ngModel)]="new_q.text"></textarea>
+    </div>
+    <div class="row_container">
+      <label for="answer">Correct Answer:</label>
+      <input type="text" name="answer" [(ngModel)]="new_q.answer" />
+    </div>
+    <div class="row_container">
+      <label for="fake1">Fake Answer 1:</label>
+      <input type="text" name="fake1" [(ngModel)]="new_q.fake1" />
+    </div>
+    <div class="row_container">
+      <label for="answer">Fake Answer 2:</label>
+      <input type="text" name="fake2" [(ngModel)]="new_q.fake2" />
+    </div>
+    <div class="row_container">
+      <button type="button" name="cancel" (click)="doCancel()">Cancel</button>
+      <input type="submit" name="submit" value="Add Question" [disabled]="!newQuestionForm.form.valid" />
+    </div>
+  </form>
+</main>
