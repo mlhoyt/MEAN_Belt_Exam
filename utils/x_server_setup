@@ -1,0 +1,24 @@
+# -*- shell -*-
+
+# Server (Node/Express) - setup
+
+mkdir -p ./server/config
+mkdir -p ./server/controllers
+mkdir -p ./server/models
+
+npm init -y >& ./logs/npm_init.log
+npm install express --save >& ./logs/npm_install.express.log
+npm install body-parser --save >& ./logs/npm_install.body-parser.log
+npm install mongoose --save >& ./logs/npm_install.mongoose.log
+npm install express-session --save >& ./logs/npm_install.express-session.log
+# npm install bcrypt --save >& ./logs/npm_install.bcrypt.log
+# npm install moment --save >& ./logs/npm_install.moment.log
+
+./utils/create_server_js.pl ./server.js Belt_Exam localhost 8000
+./utils/create_server_config_models_js.pl ./server/config/models.js
+./utils/create_server_models_template.pl ./server/models/template.table
+./utils/create_server_config_views_js.pl ./server/config/views.js
+./utils/create_server_config_routes_js.pl ./server/config/routes.js
+./utils/create_server_controllers_template.pl ./server/controllers/template.table
+./utils/create_client_template_api_service.pl ./client/src/app/template.table.api_service
+

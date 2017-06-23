@@ -1,0 +1,3 @@
+# -*- shell -*-
+ps -u ${LOGNAME} | grep angular
+cd client; ng build -w 2>&1 >> ../logs/ng_build.log &

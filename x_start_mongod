@@ -1,0 +1,3 @@
+# -*- shell -*-
+ps -u ${LOGNAME} | grep mongod
+mongod --dbpath ./db/data/db >& ./logs/mongod.log &
