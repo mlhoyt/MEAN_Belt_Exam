@@ -13,8 +13,9 @@ module.exports = {
   },
 
   read_all: function( req, res ) {
+    // See: https://stackoverflow.com/questions/3212919/mongo-complex-sorting
     Score.find({})
-      // .sort( '{{FIELD_NAME}}|-{{FIELD_NAME}}') // createdAt, -createdAt
+      .sort( '-nrCorrect')
       .catch( err => res.status( 500 ).json( err ) )
       .then( data => res.json( data ) );
   },
