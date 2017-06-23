@@ -1,4 +1,5 @@
-<h5>login.component</h5>
+<h2>Trivia!</h2>
+<p>Please enter your name to enter the game:</p>
 <form #loginForm="ngForm" (submit)="doLogin()">
   <input type="text" name="user_name" [(ngModel)]="user_name" required minlength="1" />
   <input type="submit" name="submit" value="Enter" [disabled]="!loginForm.form.valid" />

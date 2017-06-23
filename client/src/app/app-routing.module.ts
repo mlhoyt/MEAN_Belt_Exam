@@ -14,7 +14,8 @@ const routes: Routes = [
 // { path: '{{URL}}', [ pathMatch: 'full', ] redirectTo: '/{{URL}}' },
   { path: 'new_question', pathMatch: 'full', component: NewQuestionComponent },
   { path: 'lets_play', pathMatch: 'full', component: LetsPlayComponent },
-  { path: '', pathMatch: 'full', component: DashboardComponent },
+  { path: 'dashboard', pathMatch: 'full', component: DashboardComponent },
+  { path: '', pathMatch: 'full', component: LoginComponent },
 ];
 
 @NgModule({

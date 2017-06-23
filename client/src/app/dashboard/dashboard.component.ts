@@ -9,6 +9,7 @@ import { Router } from '@angular/router';
   styleUrls: ['./dashboard.component.css']
 })
 export class DashboardComponent implements OnInit {
+  currentUser: string = "NOT_SET";
   search_filter: string = "";
   all_scores: Array<Score>;
 
@@ -17,6 +18,9 @@ export class DashboardComponent implements OnInit {
     private _router: Router,
   )
   {
+    this._serverApi.isLoggedIn()
+      .then( data => this.currentUser = data )
+      .catch( () => this._router.navigate( ['/'] ) );
   }
 
   ngOnInit() {

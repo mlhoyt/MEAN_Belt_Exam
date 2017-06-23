@@ -9,6 +9,7 @@ import { Router } from '@angular/router';
   styleUrls: ['./new-question.component.css']
 })
 export class NewQuestionComponent implements OnInit {
+  currentUser: string = "NOT_SET";
   new_q: Question = new Question();
 
   constructor(
@@ -16,6 +17,9 @@ export class NewQuestionComponent implements OnInit {
     private _router: Router,
   )
   {
+    this._serverApi.isLoggedIn()
+      .then( data => this.currentUser = data )
+      .catch( () => this._router.navigate( ['/'] ) );
   }
 
   ngOnInit() {

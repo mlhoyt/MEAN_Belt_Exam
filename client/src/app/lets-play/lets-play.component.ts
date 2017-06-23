@@ -18,6 +18,9 @@ export class LetsPlayComponent implements OnInit {
     private _router: Router,
   )
   {
+    this._serverApi.isLoggedIn()
+      .then( data => this.currentUser = data )
+      .catch( () => this._router.navigate( ['/'] ) );
   }
 
   ngOnInit() {

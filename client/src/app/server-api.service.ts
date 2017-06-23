@@ -11,6 +11,17 @@ export class ServerApiService {
   )
   {}
 
+  login( user: string ) {
+    return this._http.post( "/actions/login", { user: user } )
+      .toPromise();
+  }
+
+  isLoggedIn(){
+    return this._http.get( "/actions/isLoggedIn" )
+      .map( data => data.json() )
+      .toPromise();
+  }
+
   create_question( item ) {
     return this._http.post( '/api/questions', item )
       .map( data => data.json() )
@@ -50,7 +61,7 @@ export class ServerApiService {
       .map( data => data.json() )
       .toPromise();
   }
-  
+
   // create( item ) { return this._http.post( 'api', item ) .map( data => data.json() ) .toPromise(); }
   // read_all() { return this._http.get( 'api' ) .map( data => data.json() ) .toPromise(); }
   // read_one( pk ) { return this._http.get( 'api/' ) .map( data => data.json() ) .toPromise(); }
