@@ -8,8 +8,8 @@
   </p>
 </header>
 <main>
-  <div *ngIf="results_msg" class="results">
-    {{ results_msg }}
+  <div *ngIf="status_msg" class="results">
+    {{ status_msg }}
   </div>
   <div class="play">
     <button type="button" name="play" (click)="doPlay()">Play!</button>
@@ -40,3 +40,7 @@
     </table>
   </div>
 </main>
+<pre>currentUser: {{ currentUser | json }}</pre>
+<pre>status_msg: {{ status_msg | json }}</pre>
+<pre>search_filter: {{ search_filter | json }}</pre>
+<pre>all_scores: {{ all_scores | json }}</pre>

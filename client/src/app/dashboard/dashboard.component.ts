@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { Score } from '../score';
 import { ServerApiService } from '../server-api.service';
 import { Router } from '@angular/router';
+import { StatusMsgDataService } from '../status-msg-data.service';
+import { Subscription } from 'rxjs/Subscription';j
 
 @Component({
   selector: 'app-dashboard',
@@ -10,16 +12,26 @@ import { Router } from '@angular/router';
 })
 export class DashboardComponent implements OnInit {
   currentUser: string = "NOT_SET";
+
+  status_msg: string;
+  status_msg_subscription: Subscription;
+
   search_filter: string = "";
+
   all_scores: Array<Score>;
 
   constructor(
     private _serverApi: ServerApiService,
     private _router: Router,
+    private _statusMsgData: StatusMsgDataService,
   )
   {
     this._serverApi.isLoggedIn()
-      .then( data => this.currentUser = data )
+      .then( data => {
+        this.currentUser = data;
+        this.status_msg_subscription = this._statusMsgData.subject
+          .subscribe( data => { this.status_msg = data; }, err => {}, () => {} );
+      })
       .catch( () => this._router.navigate( ['/'] ) );
   }
 

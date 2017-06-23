@@ -8,10 +8,11 @@ import { AppComponent } from './app.component';
 import { HomeComponent } from './home/home.component';
 import { LoginComponent } from './login/login.component';
 import { NewQuestionComponent } from './new-question/new-question.component';
-
-import { ServerApiService } from './server-api.service';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { LetsPlayComponent } from './lets-play/lets-play.component';
+
+import { ServerApiService } from './server-api.service';
+import { StatusMsgDataService } from './status-msg-data.service';
 
 @NgModule({
   declarations: [
@@ -30,6 +31,7 @@ import { LetsPlayComponent } from './lets-play/lets-play.component';
   ],
   providers: [
     ServerApiService,
+    StatusMsgDataService,
   ],
   bootstrap: [AppComponent]
 })

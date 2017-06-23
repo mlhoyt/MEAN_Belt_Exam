@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { Question } from '../question';
 import { ServerApiService } from '../server-api.service';
 import { Router } from '@angular/router';
+import { StatusMsgDataService } from '../status-msg-data.service';
+import { Subscription } from 'rxjs/Subscription';
 
 @Component({
   selector: 'app-lets-play',
@@ -10,16 +12,25 @@ import { Router } from '@angular/router';
 })
 export class LetsPlayComponent implements OnInit {
   currentUser: string = "NOT_SET";
+
+  status_msg: string;
+  status_msg_subscription: Subscription;
+
   selected_questions: Array<Question> = [];
   chosen_answers: Array<string> = [];
 
   constructor(
     private _serverApi: ServerApiService,
     private _router: Router,
+    private _statusMsgData: StatusMsgDataService,
   )
   {
     this._serverApi.isLoggedIn()
-      .then( data => this.currentUser = data )
+      .then( data => {
+        this.currentUser = data;
+        this.status_msg_subscription = this._statusMsgData.subject
+          .subscribe( data => { this.status_msg = data; }, err => {}, () => {} );
+      })
       .catch( () => this._router.navigate( ['/'] ) );
   }
 
@@ -45,6 +56,9 @@ export class LetsPlayComponent implements OnInit {
     }
     console.log( "Debug: LetsPlayComponent: nrCorrect:", nrCorrect, "nrAsked", nrAsked );
     this._serverApi.create_score( { nrCorrect: nrCorrect, nrAsked: nrAsked, user: this.currentUser } );
+    this.status_msg = "That was great, " + this.currentUser + "!" +
+      " You score is " + nrCorrect + "/" + nrAsked + " (" + (nrCorrect / nrAsked) + ")";
+    this._statusMsgData.subject.next( this.status_msg );
     this._router.navigate( ['/'] );
   }
 }
