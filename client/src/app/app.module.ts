@@ -11,6 +11,7 @@ import { NewQuestionComponent } from './new-question/new-question.component';
 
 import { ServerApiService } from './server-api.service';
 import { DashboardComponent } from './dashboard/dashboard.component';
+import { LetsPlayComponent } from './lets-play/lets-play.component';
 
 @NgModule({
   declarations: [
@@ -19,6 +20,7 @@ import { DashboardComponent } from './dashboard/dashboard.component';
     LoginComponent,
     NewQuestionComponent,
     DashboardComponent,
+    LetsPlayComponent,
   ],
   imports: [
     BrowserModule,

@@ -22,6 +22,12 @@ export class ServerApiService {
       .map( data => data.json() )
       .toPromise();
   }
+
+  get_random_questions() {
+    return this._http.get( '/api/questions' )
+      .map( data => data.json() )
+      .toPromise();
+  }
   
   // create( item ) { return this._http.post( 'api', item ) .map( data => data.json() ) .toPromise(); }
   // read_all() { return this._http.get( 'api' ) .map( data => data.json() ) .toPromise(); }

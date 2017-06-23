@@ -3,6 +3,7 @@ import { Routes, RouterModule } from '@angular/router';
 import { LoginComponent } from './login/login.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { NewQuestionComponent } from './new-question/new-question.component';
+import { LetsPlayComponent } from './lets-play/lets-play.component';
 
 const routes: Routes = [
 // NOTE: path-URL has NO leading '/'
@@ -12,6 +13,7 @@ const routes: Routes = [
 // { path: '{{URL}}', [ pathMatch: 'full', ] component: {{COMP}}Component },
 // { path: '{{URL}}', [ pathMatch: 'full', ] redirectTo: '/{{URL}}' },
   { path: 'new_question', pathMatch: 'full', component: NewQuestionComponent },
+  { path: 'lets_play', pathMatch: 'full', component: LetsPlayComponent },
   { path: '', pathMatch: 'full', component: DashboardComponent },
 ];
 
