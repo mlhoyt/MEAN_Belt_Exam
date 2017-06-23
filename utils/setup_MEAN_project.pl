@@ -58,72 +58,72 @@ $opt_use_client_routing = 1;
 
 # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
 
-# printf STDERR "Info: Project Directory - prep\n";
-# system( "mkdir ${opt_project_root}" );
-# system( "mkdir ${opt_project_root}/logs" );
-# &create_gitignore( "${opt_project_root}/.gitignore" );
-# system( "cd ${opt_project_root}; git init" );
-# system( "# cd ${opt_project_root}; git remote add origin https://github.com/${GITHUB_USERNAME}/{{TRACK}}_{{SECTION}}_{{PROJECT}}.git" );
+# x printf STDERR "Info: Project Directory - prep\n";
+# x system( "mkdir ${opt_project_root}" );
+# x system( "mkdir ${opt_project_root}/logs" );
+# x &create_gitignore( "${opt_project_root}/.gitignore" );
+# x system( "cd ${opt_project_root}; git init" );
+# x system( "# cd ${opt_project_root}; git remote add origin https://github.com/${GITHUB_USERNAME}/{{TRACK}}_{{SECTION}}_{{PROJECT}}.git" );
 
 # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
 
-# printf STDERR "Info: Database (MongoDB) - prep\n";
-# system( "which mongod" );
-# system( "mongod --version" );
+# x printf STDERR "Info: Database (MongoDB) - prep\n";
+# x system( "which mongod" );
+# x system( "mongod --version" );
 
-# printf STDERR "Info: Database (MongoDB) - setup\n";
-# system( "mkdir -p ${opt_project_root}/db/data/db" );
+# x printf STDERR "Info: Database (MongoDB) - setup\n";
+# x system( "mkdir -p ${opt_project_root}/db/data/db" );
 
-# printf STDERR "Info: Database (MongoDB) - launch\n";
-# system( "mongod --dbpath ${opt_project_root}/db/data/db >& ${opt_project_root}/logs/mongod.log &" );
-
-# # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
-
-# printf STDERR "Info: Client (Angular) - prep\n";
-# system( "which ng" );
-# system( "ng --version" );
-
-# printf STDERR "Info: Client (Angular) - setup\n";
-# system( "cd ${opt_project_root}; ng new client --skip-install >& logs/ng_new.log" );
-# system( "# TL;DD: cd ${opt_project_root}/client; npm install >& ../logs/client.npm_install.log" );
-# system( "cd ${opt_project_root}/client; cp -r ~/Desktop/DojoMisc/MEAN/client_node_modules node_modules" );
-
-# printf STDERR "Info: Client (Angular) - launch\n";
-# system( "cd ${opt_project_root}/client; ng build 2>&1 | tee ../logs/ng_build.log" );
-# system( "cd ${opt_project_root}/client; ng build -w 2>&1 >> ../logs/ng_build.log &" );
+# x printf STDERR "Info: Database (MongoDB) - launch\n";
+# x system( "mongod --dbpath ${opt_project_root}/db/data/db >& ${opt_project_root}/logs/mongod.log &" );
 
 # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
 
-# printf STDERR "Info: Server (Node/Express) - prep\n";
-# system( "which node" );
-# system( "node --version" );
-# system( "which nodemon" );
-# system( "nodemon --version" );
+# x printf STDERR "Info: Client (Angular) - prep\n";
+# x system( "which ng" );
+# x system( "ng --version" );
 
-# printf STDERR "Info: Server (Node/Express) - setup\n";
-# system( "mkdir -p ${opt_project_root}/server/config" );
-# system( "mkdir -p ${opt_project_root}/server/controllers" );
-# system( "mkdir -p ${opt_project_root}/server/models" );
-# system( "cd ${opt_project_root}/; npm init -y >& logs/npm_init.log" );
-# system( "# cd ${opt_project_root}/; npm install express --save >& logs/npm_install.express.log" );
-# system( "# cd ${opt_project_root}/; npm install body-parser --save >& logs/npm_install.body-parser.log" );
-# system( "# cd ${opt_project_root}/; npm install mongoose --save >& logs/npm_install.mongoose.log" );
-# system( "# cd ${opt_project_root}/; npm install express-session --save >& logs/npm_install.express-session.log" );
-# system( "# cd ${opt_project_root}/; npm install bcrypt --save >& logs/npm_install.bcrypt.log" );
-# system( "# cd ${opt_project_root}/; npm install moment --save >& logs/npm_install.moment.log" );
-# system( "./utils/create_server_js.pl ./server.js ${opt_project_name} ${opt_db_server_path} ${opt_web_server_port}" );
-# system( "./utils/create_server_config_models_js.pl ./server/config/models.js" );
-# system( "./utils/create_server_models_template.pl ./server/models/template.table" );
-# system( "./utils/create_server_config_views_js.pl ./server/config/views.js" );
-# system( "./utils/create_server_config_routes_js.pl ./server/config/routes.js" );
-# system( "./utils/create_server_controllers_template.pl ./server/controllers/template.table" );
-# system( "./utils/create_client_template_api_service.pl ./client/src/app/template.table.api_service" );
+# x printf STDERR "Info: Client (Angular) - setup\n";
+# x system( "cd ${opt_project_root}; ng new client --skip-install >& logs/ng_new.log" );
+# x system( "# TL;DD: cd ${opt_project_root}/client; npm install >& ../logs/client.npm_install.log" );
+# x system( "cd ${opt_project_root}/client; cp -r ~/Desktop/DojoMisc/MEAN/client_node_modules node_modules" );
 
-# printf STDERR "Info: Server (Node/Express) - launch\n";
-# print( "# cd ${opt_project_root}/; nodemon server.js\n" );
+# x printf STDERR "Info: Client (Angular) - launch\n";
+# x system( "cd ${opt_project_root}/client; ng build 2>&1 | tee ../logs/ng_build.log" );
+# x system( "cd ${opt_project_root}/client; ng build -w 2>&1 >> ../logs/ng_build.log &" );
 
-# printf STDERR "Info: Server (Node/Express) - test\n";
-# system( sprintf "curl http://%s:%s", ${opt_web_server_path}, ${opt_web_server_port} );
+# # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
+
+# x printf STDERR "Info: Server (Node/Express) - prep\n";
+# x system( "which node" );
+# x system( "node --version" );
+# x system( "which nodemon" );
+# x system( "nodemon --version" );
+
+# x printf STDERR "Info: Server (Node/Express) - setup\n";
+# x system( "mkdir -p ${opt_project_root}/server/config" );
+# x system( "mkdir -p ${opt_project_root}/server/controllers" );
+# x system( "mkdir -p ${opt_project_root}/server/models" );
+# x system( "cd ${opt_project_root}/; npm init -y >& logs/npm_init.log" );
+# x system( "# cd ${opt_project_root}/; npm install express --save >& logs/npm_install.express.log" );
+# x system( "# cd ${opt_project_root}/; npm install body-parser --save >& logs/npm_install.body-parser.log" );
+# x system( "# cd ${opt_project_root}/; npm install mongoose --save >& logs/npm_install.mongoose.log" );
+# x system( "# cd ${opt_project_root}/; npm install express-session --save >& logs/npm_install.express-session.log" );
+# x system( "# cd ${opt_project_root}/; npm install bcrypt --save >& logs/npm_install.bcrypt.log" );
+# x system( "# cd ${opt_project_root}/; npm install moment --save >& logs/npm_install.moment.log" );
+# x system( "./utils/create_server_js.pl ./server.js ${opt_project_name} ${opt_db_server_path} ${opt_web_server_port}" );
+# x system( "./utils/create_server_config_models_js.pl ./server/config/models.js" );
+# x system( "./utils/create_server_models_template.pl ./server/models/template.table" );
+# x system( "./utils/create_server_config_views_js.pl ./server/config/views.js" );
+# x system( "./utils/create_server_config_routes_js.pl ./server/config/routes.js" );
+# x system( "./utils/create_server_controllers_template.pl ./server/controllers/template.table" );
+# x system( "./utils/create_client_template_api_service.pl ./client/src/app/template.table.api_service" );
+
+# x printf STDERR "Info: Server (Node/Express) - launch\n";
+# x print( "# cd ${opt_project_root}/; nodemon server.js\n" );
+
+# x printf STDERR "Info: Server (Node/Express) - test\n";
+# x system( sprintf "curl http://%s:%s", ${opt_web_server_path}, ${opt_web_server_port} );
 
 # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
 
