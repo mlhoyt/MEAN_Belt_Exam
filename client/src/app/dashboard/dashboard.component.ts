@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Score } from '../score';
 import { ServerApiService } from '../server-api.service';
 import { Router } from '@angular/router';
 
@@ -9,8 +10,7 @@ import { Router } from '@angular/router';
 })
 export class DashboardComponent implements OnInit {
   search_filter: string = "";
-  //all_scores: Array<Score>;
-  all_scores = [];
+  all_scores: Array<Score>;
 
   constructor(
     private _serverApi: ServerApiService,
@@ -27,7 +27,7 @@ export class DashboardComponent implements OnInit {
 
   doPlay() {
     console.log( "Debug: DashboardComponent: doPlay: activated" );
-    // this._router.navigate( ['/lets_play'] );
+    this._router.navigate( ['/lets_play'] );
   }
 
   doSearchFilter() {
