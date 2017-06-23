@@ -7,13 +7,13 @@ module.exports = function( globals ) {
   // globals.app.use( bodyParser.urlencoded( { extended: true } ) );
   globals.app.use( bodyParser.json() );
 
-  // let {{TABLE_NAME}}_ctrlr = require( '../controllers/{{TABLE_NAME}}.js' );
+  let Question_ctrlr = require( '../controllers/Question.js' );
 
-  // globals.app.post   ( '/{{URL}}',     ( req, res ) => {{TABLE_NAME}}_ctrlr.create   ( req, res ) );
-  // globals.app.get    ( '/{{URL}}',     ( req, res ) => {{TABLE_NAME}}_ctrlr.read_all ( req, res ) );
-  // globals.app.get    ( '/{{URL}}/:pk', ( req, res ) => {{TABLE_NAME}}_ctrlr.read_one ( req, res ) );
-  // globals.app.put    ( '/{{URL}}/:pk', ( req, res ) => {{TABLE_NAME}}_ctrlr.update   ( req, res ) );
-  // globals.app.delete ( '/{{URL}}/:pk', ( req, res ) => {{TABLE_NAME}}_ctrlr.delete   ( req, res ) );
+  globals.app.post   ( '/api/questions/',    ( req, res ) => Question_ctrlr.create   ( req, res ) );
+  globals.app.get    ( '/api/questions/',    ( req, res ) => Question_ctrlr.read_all ( req, res ) );
+  globals.app.get    ( '/api/questions/:pk', ( req, res ) => Question_ctrlr.read_one ( req, res ) );
+  globals.app.put    ( '/api/questions/:pk', ( req, res ) => Question_ctrlr.update   ( req, res ) );
+  globals.app.delete ( '/api/questions/:pk', ( req, res ) => Question_ctrlr.delete   ( req, res ) );
 
   // Default (delegate to front-end router)
   globals.app.all( '*', ( req, res ) => res.sendFile( path.resolve( './client/dist/index.html' ) ) );
