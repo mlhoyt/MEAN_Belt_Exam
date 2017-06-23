@@ -27,12 +27,21 @@ export class LetsPlayComponent implements OnInit {
   }
 
   doCancel() {
-    console.log( "Debug: LetsPlayComponent: doCancel: activated" );
     this._router.navigate( ['/'] );
   }
 
   doSubmit() {
     console.log( "Debug: LetsPlayComponent: doSubmit: activated" );
     console.log( "Debug: LetsPlayComponent: chosen_answers:", this.chosen_answers );
+    let nrCorrect = 0;
+    let nrAsked = this.selected_questions.length;
+    for( let i = 0; i < this.selected_questions.length; ++i ) {
+      if( this.selected_questions[i].answer == this.chosen_answers[i] ) {
+        nrCorrect++;
+      }
+    }
+    console.log( "Debug: LetsPlayComponent: nrCorrect:", nrCorrect, "nrAsked", nrAsked );
+    this._serverApi.create_score( { nrCorrect: nrCorrect, nrAsked: nrAsked, user: this.currentUser } );
+    this._router.navigate( ['/'] );
   }
 }
