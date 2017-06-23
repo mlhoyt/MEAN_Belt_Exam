@@ -1,7 +1,7 @@
 <p>Hi {{ currentUser }}</p>
 <p>Choose an answer for each of the questions and submit the test once done:</p>
 <p>Good luck!</p>
-<form #playForm="ngForm">
+<form #playForm="ngForm" (submit)="doSubmit()">
   <div *ngFor="let q of selected_questions; let i = index" class="question">
     <p>{{ i + 1 }}. {{ q.text }}</p>
     <input type="radio" name="a{{i}}" value="{{ q.answer }}" [(ngModel)]="chosen_answers[i]" required>{{ q.answer }}<br>
@@ -10,6 +10,6 @@
   </div>
   <div class="row_container">
     <button type="button" name="cancel" (click)="doCancel()">Cancel</button>
-    <input type="submit" name="submit" value="Submit" [disabled]="!playForm.form.valid" (click)="doSubmit()" />
+    <input type="submit" name="submit" value="Submit" [disabled]="!playForm.form.valid" />
   </div>
 </form>

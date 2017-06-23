@@ -3,7 +3,7 @@ import { Score } from '../score';
 import { ServerApiService } from '../server-api.service';
 import { Router } from '@angular/router';
 import { StatusMsgDataService } from '../status-msg-data.service';
-import { Subscription } from 'rxjs/Subscription';j
+import { Subscription } from 'rxjs/Subscription';
 
 @Component({
   selector: 'app-dashboard',
@@ -13,7 +13,7 @@ import { Subscription } from 'rxjs/Subscription';j
 export class DashboardComponent implements OnInit {
   currentUser: string = "NOT_SET";
 
-  status_msg: string;
+  status_msg: string = "NOT_SET";
   status_msg_subscription: Subscription;
 
   search_filter: string = "";

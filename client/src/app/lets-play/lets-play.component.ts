@@ -35,6 +35,7 @@ export class LetsPlayComponent implements OnInit {
   }
 
   ngOnInit() {
+    this._statusMsgData.subject.next( this.status_msg );
     this._serverApi.get_random_questions()
       .then( data => this.selected_questions = data )
       .catch( err => console.log( "Error: LetsPlayComponent: ngOnInit: API error:", err ) );
@@ -57,7 +58,7 @@ export class LetsPlayComponent implements OnInit {
     console.log( "Debug: LetsPlayComponent: nrCorrect:", nrCorrect, "nrAsked", nrAsked );
     this._serverApi.create_score( { nrCorrect: nrCorrect, nrAsked: nrAsked, user: this.currentUser } );
     this.status_msg = "That was great, " + this.currentUser + "!" +
-      " You score is " + nrCorrect + "/" + nrAsked + " (" + (nrCorrect / nrAsked) + ")";
+      " Your score is " + nrCorrect + "/" + nrAsked + " (" + ((nrCorrect / nrAsked) * 100).toFixed(1) + "%)";
     this._statusMsgData.subject.next( this.status_msg );
     this._router.navigate( ['/'] );
   }
