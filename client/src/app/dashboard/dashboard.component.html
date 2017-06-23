@@ -1,0 +1,42 @@
+<header>
+  <p id="header_left">
+    <a [routerLink]="['/']">Home</a>
+    | <a [routerLink]="['/new_question']">Add a Question</a>
+  </p>
+  <p id="header_right">
+    <a [routerLink]="['/']">Logout</a>
+  </p>
+</header>
+<main>
+  <div *ngIf="results_msg" class="results">
+    {{ results_msg }}
+  </div>
+  <div class="play">
+    <button type="button" name="play" (click)="doPlay()">Play!</button>
+    <p>Click the button above to start the trivia game.</p>
+  </div>
+  <div class="results_table">
+    <div class="row_container">
+      <form (submit)="doResultsFilter()">
+        <label for="search">Search</label>
+        <input type="text" name="search" [(ngModel)]="search_filter" />
+      </form>
+    </div>
+    <table border="1">
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Score</th>
+          <th>Percentage</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let score of all_scores">
+          <td></td>
+          <td></td>
+          <td></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</main>

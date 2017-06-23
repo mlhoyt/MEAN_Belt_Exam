@@ -10,6 +10,7 @@ import { LoginComponent } from './login/login.component';
 import { NewQuestionComponent } from './new-question/new-question.component';
 
 import { ServerApiService } from './server-api.service';
+import { DashboardComponent } from './dashboard/dashboard.component';
 
 @NgModule({
   declarations: [
@@ -17,6 +18,7 @@ import { ServerApiService } from './server-api.service';
     HomeComponent,
     LoginComponent,
     NewQuestionComponent,
+    DashboardComponent,
   ],
   imports: [
     BrowserModule,
