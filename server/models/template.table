@@ -9,7 +9,7 @@ module.exports = function( globals ) {
     {
       // Unique Field/s
       // {{FIELD_NAME}}: {
-      //   type: {{String, Number, Date}},
+      //   type: {{String, Number, Boolean, Date, Mixed=>{}, Array=>[<TYPE>], ObjectId=>Schema.Types.ObjectId}},\n";
       //   required: {{true, false}}, ]  # -or- [ {{true, false}}, '{{MESSAGE}}'
       //   unique: true,
       //   minlength: {{Number}} },

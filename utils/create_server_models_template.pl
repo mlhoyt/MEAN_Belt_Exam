@@ -39,7 +39,7 @@ print OFH "  let {{TABLE_NAME}}Schema = new mongoose.Schema(\n";
 print OFH "    {\n";
 print OFH "      // Unique Field/s\n";
 print OFH "      // {{FIELD_NAME}}: {\n";
-print OFH "      //   type: {{String, Number, Date}},\n";
+print OFH "      //   type: {{String, Number, Boolean, Date, Mixed=>{}, Array=>[<TYPE>], ObjectId=>Schema.Types.ObjectId}},\n";
 print OFH "      //   required: {{true, false}}, ]  # -or- [ {{true, false}}, '{{MESSAGE}}'\n";
 print OFH "      //   unique: true,\n";
 print OFH "      //   minlength: {{Number}} },\n";
