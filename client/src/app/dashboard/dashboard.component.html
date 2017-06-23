@@ -17,10 +17,8 @@
   </div>
   <div class="results_table">
     <div class="row_container">
-      <form (submit)="doResultsFilter()">
-        <label for="search">Search</label>
-        <input type="text" name="search" [(ngModel)]="search_filter" />
-      </form>
+      <label for="search">Search</label>
+      <input type="text" name="search" [(ngModel)]="search_filter" />
     </div>
     <table border="1">
       <thead>
@@ -31,7 +29,7 @@
         </tr>
       </thead>
       <tbody>
-        <tr *ngFor="let score of all_scores">
+        <tr *ngFor="let score of all_scores | filter:search_filter">
           <td>{{ score.user }}</td>
           <td>{{ score.nrCorrect }}/{{ score.nrAsked }}</td>
           <td>{{ (score.nrCorrect / score.nrAsked) * 100 | number : '.0-1' }}%</td>
