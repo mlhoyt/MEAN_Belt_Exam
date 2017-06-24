@@ -10,7 +10,7 @@ import { LoginComponent } from './login/login.component';
 import { NewQuestionComponent } from './new-question/new-question.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { LetsPlayComponent } from './lets-play/lets-play.component';
-import { FilterPipe } from './filter-pipe';
+import { ScoreSearchPipe } from './score-search.pipe';
 
 import { ServerApiService } from './server-api.service';
 import { StatusMsgDataService } from './status-msg-data.service';
@@ -23,7 +23,7 @@ import { StatusMsgDataService } from './status-msg-data.service';
     NewQuestionComponent,
     DashboardComponent,
     LetsPlayComponent,
-    FilterPipe,
+    ScoreSearchPipe,
   ],
   imports: [
     BrowserModule,
