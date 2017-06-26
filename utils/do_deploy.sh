@@ -7,13 +7,17 @@ PUBLIC_IP="52.15.232.219"
 PRIVATE_IP="172.31.2.112"
 
 ######################################################################
+# Major Installs
+######################################################################
 
-set -o vi
+cd ${HOME}
+
 echo "y" > AUTO_CONFIRM
 
 sudo apt-get update
 
 sudo apt-get install -y build-essential openssl libssl-dev pkg-config
+
 sudo apt-get install -y nodejs
 sudo apt-get install npm < AUTO_CONFIRM
 
@@ -22,24 +26,34 @@ sudo npm install -g n
 sudo n stable
 
 sudo apt-get install git
+
+# NOTE: Not sure why but this is done later in the mongo section
+# sudo apt-get install -y mongodb-org
+
 sudo apt-get install nginx < AUTO_CONFIRM
 
 sudo npm install pm2 -g
 
 ######################################################################
+# Get WebApp Source Code
+######################################################################
 
 cd /var/www
+
 sudo git clone ${GITHUB_REPO}
 sudo mv ${GITHUB_REPO_NAME} ${PROJECT_NAME}
-cd -
 
-# # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
+######################################################################
+# nginx Configuration
+######################################################################
+
+cd ${HOME}
 
 cat > /tmp/${PROJECT_NAME}.nginx.cfg << EOHI
 server {
   listen 80;
   location / {
-    proxy_pass http://<PRIVATE_IP>:8000;
+    proxy_pass http://${PRIVATE_IP}:8000;
     proxy_http_version 1.1;
     proxy_set_header Upgrade \$http_upgrade;
     proxy_set_header Connection 'upgrade';
@@ -48,31 +62,42 @@ server {
   }
 }
 EOHI
-cat /tmp/${PROJECT_NAME}.nginx.cfg \
-    | sed "s/<PRIVATE_IP>/${PRIVATE_IP}/g" \
-    | sudo tee /etc/nginx/sites-available/${PROJECT_NAME}
+
+cat /tmp/${PROJECT_NAME}.nginx.cfg | sudo tee /etc/nginx/sites-available/${PROJECT_NAME}
 sudo rm /etc/nginx/sites-available/default
+
 sudo ln -s /etc/nginx/sites-available/${PROJECT_NAME} /etc/nginx/sites-enabled/${PROJECT_NAME}
 sudo rm /etc/nginx/sites-enabled/default
 
-# # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
+######################################################################
+# Build WebApp
+######################################################################
 
 cd /var/www/${PROJECT_NAME}
 sudo npm install
-cd client
+
+cd /var/www/${PROJECT_NAME}/client
 sudo npm install
-sudo npm install -g @angular/cli
+
+cd /var/www/${PROJECT_NAME}/client
+# sudo npm install -g @angular/cli
 # <ctrl>+c  -- because this will end up in an infinite loop
 sudo npm install @angular/cli
 which ng
 sudo ng build
 
-# # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
+######################################################################
+# Start mongod (Database)
+######################################################################
 
 cd /var/www/${PROJECT_NAME}
-sudo apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv 0C49F3730359A14518585931BC711F9BA15703C6
+
+sudo apt-key adv \
+    --keyserver hkp://keyserver.ubuntu.com:80 \
+    --recv 0C49F3730359A14518585931BC711F9BA15703C6
 echo "deb [ arch=amd64,arm64 ] http://repo.mongodb.org/apt/ubuntu xenial/mongodb-org/3.4 multiverse" \
     | sudo tee /etc/apt/sources.list.d/mongodb-org-3.4.list
+
 sudo apt-get update
 sudo apt-get install -y mongodb-org
 sudo mkdir -p /data/db
@@ -84,17 +109,37 @@ sudo mkdir -p /data/db
 sudo service mongod start
 ## FYI: sudo service mongod stop
 
-# # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
+######################################################################
+# Start pm2 (NodeJS Server)
+######################################################################
 
 cd /var/www/${PROJECT_NAME}
 pm2 start server.js
 pm2 stop 0
 pm2 restart 0
 pm2 status
-sudo service nginx reload && sudo service nginx restart
 
-# # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
+echo "Info: Waiting momentarily for pm2 (NodeJS server) to restart ..."
+sleep 5
+
+######################################################################
+# Test - internal connection
+######################################################################
 
 curl http://localhost:8000
+
+######################################################################
+# Start nginx
+######################################################################
+
+sudo service nginx reload && sudo service nginx restart
+
+echo "Info: Waiting momentarily for nginx to restart ..."
+sleep 5
+
+######################################################################
+# Test - external connection
+######################################################################
+
 curl http://${PUBLIC_IP}
 
