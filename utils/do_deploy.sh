@@ -25,6 +25,18 @@ echo "**************************************************************************
 sudo apt-get install -y build-essential openssl libssl-dev pkg-config
 
 echo "****************************************************************************************************"
+echo "* Installs: git"
+echo "****************************************************************************************************"
+
+sudo apt-get install git
+
+echo "****************************************************************************************************"
+echo "* Installs: mongodb-org"
+echo "****************************************************************************************************"
+
+sudo apt-get install -y mongodb-org
+
+echo "****************************************************************************************************"
 echo "* Installs: NodeJS, NPM"
 echo "****************************************************************************************************"
 
@@ -40,25 +52,16 @@ sudo npm install -g n
 sudo n stable
 
 echo "****************************************************************************************************"
-echo "* Installs: git"
+echo "* NPM Installs: pm2"
 echo "****************************************************************************************************"
 
-sudo apt-get install git
-
-# NOTE: Not sure why but this is done later in the mongo section
-# sudo apt-get install -y mongodb-org
+sudo npm install pm2 -g
 
 echo "****************************************************************************************************"
 echo "* Installs: nginx"
 echo "****************************************************************************************************"
 
 sudo apt-get install nginx < AUTO_CONFIRM
-
-echo "****************************************************************************************************"
-echo "* NPM Installs: pm2"
-echo "****************************************************************************************************"
-
-sudo npm install pm2 -g
 
 ######################################################################
 
@@ -70,32 +73,6 @@ cd /var/www
 
 sudo git clone ${GITHUB_REPO}
 sudo mv ${GITHUB_REPO_NAME} ${PROJECT_NAME}
-
-echo "****************************************************************************************************"
-echo "* nginx: Configuration"
-echo "****************************************************************************************************"
-
-cd ${HOME}
-
-cat > /tmp/${PROJECT_NAME}.nginx.cfg << EOHI
-server {
-  listen 80;
-  location / {
-    proxy_pass http://${PRIVATE_IP}:8000;
-    proxy_http_version 1.1;
-    proxy_set_header Upgrade \$http_upgrade;
-    proxy_set_header Connection 'upgrade';
-    proxy_set_header Host \$host;
-    proxy_cache_bypass \$http_upgrade;
-  }
-}
-EOHI
-
-cat /tmp/${PROJECT_NAME}.nginx.cfg | sudo tee /etc/nginx/sites-available/${PROJECT_NAME}
-sudo rm /etc/nginx/sites-available/default
-
-sudo ln -s /etc/nginx/sites-available/${PROJECT_NAME} /etc/nginx/sites-enabled/${PROJECT_NAME}
-sudo rm /etc/nginx/sites-enabled/default
 
 echo "****************************************************************************************************"
 echo "* WebApp: Server (NodeJS) Dependency Installs"
@@ -127,7 +104,7 @@ sudo ./node_modules/@angular/cli/bin/ng build
 ######################################################################
 
 echo "****************************************************************************************************"
-echo "* Database: Start mongod"
+echo "* Database: Setup mongod"
 echo "****************************************************************************************************"
 
 cd /var/www/${PROJECT_NAME}
@@ -139,10 +116,11 @@ sudo apt-key adv \
 echo "deb [ arch=amd64,arm64 ] http://repo.mongodb.org/apt/ubuntu xenial/mongodb-org/3.4 multiverse" \
     | sudo tee /etc/apt/sources.list.d/mongodb-org-3.4.list
 
-sudo apt-get update
-sudo apt-get install -y mongodb-org
-
 sudo mkdir -p /data/db
+
+echo "****************************************************************************************************"
+echo "* Database: Start mongod"
+echo "****************************************************************************************************"
 
 ## NOTE: There has to be a better way to test mongod
 # sudo mongod
@@ -173,6 +151,32 @@ echo "**************************************************************************
 curl http://localhost:8000
 
 ######################################################################
+
+echo "****************************************************************************************************"
+echo "* nginx: Configuration"
+echo "****************************************************************************************************"
+
+cd ${HOME}
+
+cat > /tmp/${PROJECT_NAME}.nginx.cfg << EOHI
+server {
+  listen 80;
+  location / {
+    proxy_pass http://${PRIVATE_IP}:8000;
+    proxy_http_version 1.1;
+    proxy_set_header Upgrade \$http_upgrade;
+    proxy_set_header Connection 'upgrade';
+    proxy_set_header Host \$host;
+    proxy_cache_bypass \$http_upgrade;
+  }
+}
+EOHI
+
+cat /tmp/${PROJECT_NAME}.nginx.cfg | sudo tee /etc/nginx/sites-available/${PROJECT_NAME}
+sudo rm /etc/nginx/sites-available/default
+
+sudo ln -s /etc/nginx/sites-available/${PROJECT_NAME} /etc/nginx/sites-enabled/${PROJECT_NAME}
+sudo rm /etc/nginx/sites-enabled/default
 
 echo "****************************************************************************************************"
 echo "* nginx: Start"
